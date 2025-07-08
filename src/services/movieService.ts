@@ -3,17 +3,21 @@ import type { Movie } from "../types/movie";
 
 const BASE_URL = "https://api.themoviedb.org/3";
 
-interface FetchMoviesResponse {
+export interface FetchMoviesResponse {
   results: Movie[];
+  total_pages: number;
 }
 
-export async function fetchMovies(query: string): Promise<Movie[]> {
+export async function fetchMovies(
+  query: string,
+  page: number
+): Promise<FetchMoviesResponse> {
   const config = {
     params: {
       query,
       include_adult: false,
       language: "en-US",
-      page: 1,
+      page,
     },
     headers: {
       Authorization: `Bearer ${import.meta.env.VITE_TMDB_TOKEN}`,
@@ -25,5 +29,5 @@ export async function fetchMovies(query: string): Promise<Movie[]> {
     config
   );
 
-  return response.data.results;
+  return response.data;
 }
