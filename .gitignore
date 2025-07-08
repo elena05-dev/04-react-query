@@ -24,6 +24,7 @@ dist-ssr
 *.sw?
 # Env vars
 .env
+# Env.gh vars
 .env.gh
 
 
